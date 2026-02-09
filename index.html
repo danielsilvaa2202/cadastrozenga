@@ -115,6 +115,11 @@
         }
         .input-field::placeholder { color: rgba(255,255,255,0.4); }
 
+        /* Estilo para erro de validação (opcional, deixa a borda vermelha se inválido) */
+        .input-field:invalid:not(:placeholder-shown) {
+            border-color: #ff4d4d;
+        }
+
         .toggle-area {
             background: rgba(12, 192, 223, 0.08); border: 1px solid rgba(12, 192, 223, 0.2);
             border-radius: 12px; padding: 0.8rem 1rem;
@@ -273,8 +278,8 @@
                 <p class="subtitle">Cadastre-se para mudar sua rotina e garanta seu brinde exclusivo.</p>
             </header>
 
-            <form id="cadastroForm" name="zenga-final-v5" method="POST" data-netlify="true" autocomplete="off">
-                <input type="hidden" name="form-name" value="zenga-final-v5">
+            <form id="cadastroForm" name="leadszenga" method="POST" data-netlify="true" autocomplete="off">
+                <input type="hidden" name="form-name" value="leadszenga">
 
                 <div class="input-group">
                     <i class="ph-bold ph-user input-icon"></i>
@@ -283,12 +288,12 @@
 
                 <div class="input-group">
                     <i class="ph-bold ph-envelope-simple input-icon"></i>
-                    <input type="email" name="email" class="input-field" placeholder="E-mail corporativo" required autocomplete="off">
+                    <input type="email" name="email" class="input-field" placeholder="E-mail corporativo" required autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, insira um e-mail válido (ex: nome@empresa.com)">
                 </div>
 
                 <div class="input-group">
                     <i class="ph-bold ph-whatsapp-logo input-icon"></i>
-                    <input type="tel" name="whatsapp" class="input-field" placeholder="WhatsApp / Telefone" required autocomplete="off">
+                    <input type="tel" name="whatsapp" id="phoneInput" class="input-field" placeholder="(00) 00000-0000" required autocomplete="off" maxlength="15">
                 </div>
 
                 <label class="toggle-area">
@@ -331,22 +336,34 @@
     </div>
 
     <script>
+        // MÁSCARA DE TELEFONE (WHATSAPP)
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            
+            // Aplica a formatação (XX) XXXXX-XXXX
+            value = value.replace(/^(\d{2})(\d)/g, '($1) $2'); 
+            value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+            
+            e.target.value = value;
+        });
+
+        // LÓGICA DO FORMULÁRIO (NETLIFY FETCH)
         const form = document.getElementById('cadastroForm');
         const modal = document.getElementById('successModal');
 
-        // LÓGICA DO SCRYTA ADAPTADA PARA O ZENGA
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault(); 
                 
-                // 1. EFEITO VISUAL DO ZENGA (Loading)
+                // Animação do botão
                 const btn = form.querySelector('.btn-main');
                 const originalText = btn.innerHTML;
                 
                 btn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> ENVIANDO...';
                 btn.style.opacity = '0.8';
                 
-                // 2. LÓGICA DE ENVIO DO SCRYTA (Fetch)
+                // Coleta e envio
                 const formData = new FormData(form);
                 
                 fetch('/', { 
@@ -355,22 +372,16 @@
                     body: new URLSearchParams(formData).toString() 
                 })
                 .then(() => {
-                    // SUCESSO - Abre o modal do Zenga
-                    setTimeout(() => { // Mantive o delay de 800ms para a animação ficar suave
+                    setTimeout(() => { 
                         modal.classList.add('active');
-                        
-                        // Reseta botão e formulário
                         btn.innerHTML = originalText;
                         btn.style.opacity = '1';
                         form.reset();
                     }, 800);
                 })
                 .catch((error) => {
-                    // ERRO
                     alert('Erro ao enviar mensagem.');
                     console.error(error);
-                    
-                    // Reseta botão em caso de erro
                     btn.innerHTML = originalText;
                     btn.style.opacity = '1';
                 });
