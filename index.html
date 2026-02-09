@@ -273,7 +273,7 @@
                 <p class="subtitle">Cadastre-se para mudar sua rotina e garanta seu brinde exclusivo.</p>
             </header>
 
-            <form id="cadastroForm" name="zenga-final-v5" method="POST" data-netlify="true" action="/sucesso" autocomplete="off">
+            <form id="cadastroForm" name="zenga-final-v5" method="POST" data-netlify="true" autocomplete="off">
                 <input type="hidden" name="form-name" value="zenga-final-v5">
 
                 <div class="input-group">
@@ -334,24 +334,48 @@
         const form = document.getElementById('cadastroForm');
         const modal = document.getElementById('successModal');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            
-            const btn = form.querySelector('.btn-main');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> ENVIANDO...';
-            btn.style.opacity = '0.8';
-
-            setTimeout(() => {
-                modal.classList.add('active');
+        // LÓGICA DO SCRYTA ADAPTADA PARA O ZENGA
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); 
                 
-                btn.innerHTML = originalText;
-                btn.style.opacity = '1';
+                // 1. EFEITO VISUAL DO ZENGA (Loading)
+                const btn = form.querySelector('.btn-main');
+                const originalText = btn.innerHTML;
                 
-                form.reset();
-            }, 800);
-        });
+                btn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> ENVIANDO...';
+                btn.style.opacity = '0.8';
+                
+                // 2. LÓGICA DE ENVIO DO SCRYTA (Fetch)
+                const formData = new FormData(form);
+                
+                fetch('/', { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+                    body: new URLSearchParams(formData).toString() 
+                })
+                .then(() => {
+                    // SUCESSO - Abre o modal do Zenga
+                    setTimeout(() => { // Mantive o delay de 800ms para a animação ficar suave
+                        modal.classList.add('active');
+                        
+                        // Reseta botão e formulário
+                        btn.innerHTML = originalText;
+                        btn.style.opacity = '1';
+                        form.reset();
+                    }, 800);
+                })
+                .catch((error) => {
+                    // ERRO
+                    alert('Erro ao enviar mensagem.');
+                    console.error(error);
+                    
+                    // Reseta botão em caso de erro
+                    btn.innerHTML = originalText;
+                    btn.style.opacity = '1';
+                });
+            });
+        }
 
         function fecharModal() {
             modal.classList.remove('active');
