@@ -56,17 +56,17 @@
         }
 
         .badge { display: inline-block; background: var(--zenga-cyan); color: var(--zenga-deep); padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 0.75rem; margin-bottom: 0.5rem; }
-        h1 { color: var(--zenga-white); font-weight: 800; font-size: 1.8rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h1 { color: var(--zenga-white); font-weight: 800; font-size: 2rem; line-height: 1.1; margin-bottom: 0.8rem; }
         h1 span { color: var(--zenga-cyan); }
 
-        .section-title { color: var(--zenga-cyan); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin: 1rem 0 0.8rem 0; display: flex; align-items: center; gap: 8px; }
+        .section-title { color: var(--zenga-cyan); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin: 1.2rem 0 0.8rem 0; display: flex; align-items: center; gap: 8px; }
         
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
         .input-group { position: relative; }
         .input-field {
             width: 100%; background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-input);
-            padding: 0.8rem 1rem 0.8rem 2.8rem; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s;
+            padding: 0.9rem 1rem 0.9rem 2.8rem; color: white; font-size: 0.95rem; font-weight: 600; transition: 0.3s;
         }
         .input-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--zenga-cyan); font-size: 1.2rem; pointer-events: none; }
         .input-field:focus { background: rgba(4, 44, 78, 0.95); border-color: var(--zenga-cyan); outline: none; }
@@ -77,8 +77,9 @@
             text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
             box-shadow: 0 10px 25px rgba(12, 192, 223, 0.3); transition: 0.3s; margin-top: 1rem;
         }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(12, 192, 223, 0.5); }
 
-        /* --- MODAL --- */
+        /* --- MODAL DE SUCESSO ATUALIZADO --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2, 24, 43, 0.85); backdrop-filter: blur(12px);
@@ -93,6 +94,7 @@
             position: relative; overflow: hidden;
         }
         .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
+        
         .success-icon-box {
             width: 70px; height: 70px; margin: 0 auto 1.5rem auto;
             background: rgba(12, 192, 223, 0.1); border-radius: 50%;
@@ -100,23 +102,23 @@
             border: 1px solid var(--zenga-cyan); box-shadow: 0 0 30px rgba(12, 192, 223, 0.4);
         }
         .success-icon-box i { font-size: 2.5rem; color: var(--zenga-cyan); }
+        
         .modal-card h2 { color: white; font-size: 1.8rem; margin-bottom: 0.5rem; }
         .modal-card p { color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.5; margin-bottom: 2rem; }
         .btn-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         .btn-close:hover { background: white; color: var(--zenga-dark); }
-        .confetti { position: absolute; width: 10px; height: 10px; background: var(--zenga-cyan); animation: fall 3s linear infinite; opacity: 0; }
-        @keyframes fall { 0% { opacity: 1; transform: translateY(-50px) rotate(0deg); } 100% { opacity: 0; transform: translateY(200px) rotate(360deg); } }
 
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 900px) {
             body { padding: 0; align-items: flex-start; overflow-y: auto; }
             .main-card { flex-direction: column; border-radius: 0; height: auto; aspect-ratio: auto; max-height: none; }
-            .visual-area { height: 180px; }
+            .visual-area { height: 200px; }
             .input-row { grid-template-columns: 1fr; }
-            .form-area { padding: 2.5rem 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
+            .form-area { padding: 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
         }
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
- head>
+</head>
 <body>
     <div class="bg-fixed"></div>
 
@@ -134,22 +136,22 @@
                 
                 <div class="section-title"><i class="ph-bold ph-user-focus"></i> Seus Dados</div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-user input-icon"></i><input type="text" name="meu_nome" class="input-field" placeholder="Nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-user input-icon"></i><input type="text" name="meu_nome" class="input-field" placeholder="Seu nome" required></div>
                     <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="meu_whatsapp" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
 
-                <div class="section-title"><i class="ph-bold ph-users-three"></i> Amigos</div>
+                <div class="section-title"><i class="ph-bold ph-users-three"></i> Seus Amigos</div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-one input-icon"></i><input type="text" name="a1_n" class="input-field" placeholder="Nome amigo 1" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a1_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-one input-icon"></i><input type="text" name="amigo1_n" class="input-field" placeholder="Nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo1_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-two input-icon"></i><input type="text" name="a2_n" class="input-field" placeholder="Nome amigo 2" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a2_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-two input-icon"></i><input type="text" name="amigo2_n" class="input-field" placeholder="Nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo2_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-three input-icon"></i><input type="text" name="a3_n" class="input-field" placeholder="Nome amigo 3" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a3_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-three input-icon"></i><input type="text" name="amigo3_n" class="input-field" placeholder="Nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo3_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
 
                 <button type="submit" class="btn-main">RESGATAR BENEFÍCIO</button>
@@ -160,18 +162,15 @@
 
     <div class="modal-overlay" id="successModal">
         <div class="modal-card">
-            <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
-            <div class="confetti" style="left: 30%; animation-delay: 1.5s;"></div>
-            <div class="confetti" style="left: 70%; animation-delay: 0.5s;"></div>
-            <div class="confetti" style="left: 90%; animation-delay: 2s;"></div>
-            <div class="success-icon-box"><i class="ph-fill ph-check-circle"></i></div>
+            <div class="success-icon-box"><i class="ph-fill ph-gift"></i></div>
             <h2>Indicações enviadas!</h2>
-            <p>Validaremos os contatos agora.<br>Você receberá um retorno em breve com seu presente!</p>
-            <button class="btn-close" onclick="fecharModal()">Fechar</button>
+            <p>Validaremos os contatos e, se estiver tudo certo, você receberá um e-mail com os detalhes do seu benefício.</p>
+            <button class="btn-close" onclick="window.location.href='index.html'">Entendido</button>
         </div>
     </div>
 
     <script>
+        // Máscara de Telefone
         document.querySelectorAll('.mask-phone').forEach(i => {
             i.addEventListener('input', e => {
                 let v = e.target.value.replace(/\D/g, '');
@@ -184,7 +183,9 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             const btn = form.querySelector('.btn-main');
+            const originalText = btn.innerHTML;
             btn.innerHTML = 'ENVIANDO...';
+            
             const formData = new FormData(form);
             fetch('/', {
                 method: 'POST',
@@ -193,10 +194,13 @@
             }).then(() => {
                 document.getElementById('successModal').classList.add('active');
                 form.reset();
-                btn.innerHTML = 'RESGATAR BENEFÍCIO';
+                btn.innerHTML = originalText;
+            }).catch(error => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao enviar. Tente novamente.');
+                btn.innerHTML = originalText;
             });
         });
-        function fecharModal() { document.getElementById('successModal').classList.remove('active'); }
     </script>
 </body>
 </html>
