@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Indique e Ganhe - Zenga</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        :root {
+            --zenga-dark: #042c4e;
+            --zenga-deep: #02182b;
+            --zenga-cyan: #0cc0df;
+            --zenga-cyan-dark: #099bb5;
+            --zenga-white: #ffffff;
+            --glass-bg: rgba(4, 44, 78, 0.90);
+            --glass-border: rgba(12, 192, 223, 0.3);
+            --radius-card: 24px;
+            --radius-input: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html, body { height: 100%; overflow: hidden; }
+
+        body {
+            background-color: var(--zenga-dark);
+            display: flex; align-items: center; justify-content: center;
+            padding: 2rem;
+        }
+
+        .bg-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at bottom left, var(--zenga-dark), #000);
+            z-index: -2;
+        }
+        .glow {
+            position: fixed; width: 50vw; height: 50vw; background: var(--zenga-cyan);
+            border-radius: 50%; filter: blur(150px); opacity: 0.1; z-index: -1;
+            bottom: -20%; right: -20%;
+        }
+
+        .main-card {
+            display: flex; width: 100%; max-width: 1100px;
+            height: auto; max-height: 90vh; aspect-ratio: 16/9; 
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: var(--radius-card); box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            overflow: hidden; animation: appear 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative; z-index: 10;
+        }
+
+        .visual-area { flex: 4; background-color: var(--zenga-deep); height: 100%; }
+        .visual-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .form-area {
+            flex: 6; padding: 2rem 2.5rem; display: flex; flex-direction: column; justify-content: center;
+            background: rgba(4, 44, 78, 0.4); overflow-y: auto; 
+        }
+
+        .badge { display: inline-block; background: var(--zenga-cyan); color: var(--zenga-deep); padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; margin-bottom: 0.5rem; }
+        h1 { color: var(--zenga-white); font-weight: 800; font-size: 1.8rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h1 span { color: var(--zenga-cyan); }
+
+        .section-title { color: var(--zenga-cyan); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin: 1rem 0 0.8rem 0; display: flex; align-items: center; gap: 8px; }
+        
+        /* Grid para manter os campos alinhados no estilo do index */
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+        .input-group { position: relative; }
+        .input-field {
+            width: 100%; background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-input);
+            padding: 0.8rem 1rem 0.8rem 2.8rem; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s;
+        }
+        .input-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--zenga-cyan); font-size: 1.2rem; pointer-events: none; }
+        .input-field:focus { background: rgba(4, 44, 78, 0.95); border-color: var(--zenga-cyan); outline: none; }
+
+        .btn-main {
+            width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
+            border: none; border-radius: var(--radius-input); color: var(--zenga-deep); font-weight: 800; font-size: 1rem;
+            text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 25px rgba(12, 192, 223, 0.3); transition: 0.3s; margin-top: 1rem;
+        }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(12, 192, 223, 0.5); }
+
+        .btn-back { display: block; text-align: center; color: rgba(255,255,255,0.5); margin-top: 1rem; font-size: 0.8rem; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .btn-back:hover { color: var(--zenga-cyan); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 24, 43, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.4s; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        @media (max-width: 900px) {
+            body { padding: 0; align-items: flex-start; overflow-y: auto; }
+            .main-card { flex-direction: column; border-radius: 0; height: auto; aspect-ratio: auto; max-height: none; }
+            .visual-area { height: 180px; }
+            .input-row { grid-template-columns: 1fr; }
+            .form-area { padding: 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
+        }
+        @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="bg-fixed"></div>
+    <div class="glow"></div>
+
+    <main class="main-card">
+        <div class="visual-area">
+            <img src="indicacao.png" class="visual-img" onerror="this.src='https://placehold.co/800x1000/02182b/0cc0df?text=Indique+Zenga'">
+        </div>
+        <div class="form-area">
+            <header>
+                <div class="badge">PRESENTE PARA VOCÊ</div>
+                <h1>Indique 3 contatos e <span> zere seu Onboarding!</span></h1>
+            </header>
+            <form id="indicacaoForm" method="POST" data-netlify="true">
+                <div class="section-title"><i class="ph-bold ph-user-focus"></i> Seus Dados</div>
+                <div class="input-row">
+                    <div class="input-group"><i class="ph-bold ph-user input-icon"></i><input type="text" name="meu_nome" class="input-field" placeholder="Seu nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="meu_whatsapp" class="input-field mask-phone" placeholder="Seu WhatsApp" required></div>
+                </div>
+
+                <div class="section-title"><i class="ph-bold ph-users-three"></i> Amigos</div>
+                <div class="input-row">
+                    <div class="input-group"><i class="ph-bold ph-number-circle-one input-icon"></i><input type="text" name="a1_n" class="input-field" placeholder="Nome amigo 1" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a1_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group"><i class="ph-bold ph-number-circle-two input-icon"></i><input type="text" name="a2_n" class="input-field" placeholder="Nome amigo 2" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a2_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group"><i class="ph-bold ph-number-circle-three input-icon"></i><input type="text" name="a3_n" class="input-field" placeholder="Nome amigo 3" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a3_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                </div>
+
+                <button type="submit" class="btn-main">RESGATAR BENEFÍCIO</button>
+                <a href="index.html" class="btn-back"><i class="ph-bold ph-arrow-left"></i> Voltar</a>
+            </form>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="successModal">
+        <div style="background: var(--zenga-dark); border: 2px solid var(--zenga-cyan); padding: 3rem; border-radius: 30px; text-align: center;">
+            <i class="ph-fill ph-check-circle" style="font-size: 4rem; color: var(--zenga-cyan);"></i>
+            <h2 style="color: white; margin-top: 1rem;">Enviado!</h2>
+            <button class="btn-main" onclick="window.location.href='index.html'">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.mask-phone').forEach(i => {
+            i.addEventListener('input', e => {
+                let v = e.target.value.replace(/\D/g, '');
+                v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+                e.target.value = v;
+            });
+        });
+        document.getElementById('indicacaoForm').addEventListener('submit', e => {
+            e.preventDefault();
+            document.getElementById('successModal').classList.add('active');
+        });
+    </script>
+</body>
+</html>
