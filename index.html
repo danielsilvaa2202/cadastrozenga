@@ -44,7 +44,7 @@
         }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.1); } }
 
-        /* --- BOTÃO INDIQUE --- */
+        /* --- BOTÃO INDIQUE (FIXO) --- */
         .btn-indique-float {
             position: fixed; top: 2rem; right: 2rem; z-index: 2000;
             display: flex; align-items: center; gap: 10px;
@@ -56,6 +56,30 @@
         }
         .btn-indique-float:hover { transform: scale(1.05); background: var(--zenga-white); }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        /* --- BOTÃO INDIQUE (DENTRO DO FORM - SÓ IPHONE) --- */
+        .btn-indique-inline {
+            display: none;
+            width: 100%;
+            margin-bottom: 18px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            background: var(--zenga-cyan);
+            color: var(--zenga-deep);
+            padding: 14px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(12, 192, 223, 0.25);
+            transition: 0.3s;
+        }
+        .btn-indique-inline:hover {
+            transform: translateY(-2px);
+            background: var(--zenga-white);
+        }
 
         /* --- CARD PRINCIPAL --- */
         .main-card {
@@ -142,7 +166,7 @@
 
         /* --- RESPONSIVIDADE --- */
 
-        /* TABLETS / IPADS (Botão Maior conforme solicitado) */
+        /* TABLETS / IPADS */
         @media (min-width: 601px) and (max-width: 1024px) {
             .btn-indique-float { 
                 padding: 20px 40px; 
@@ -156,48 +180,48 @@
 
         /* MOBILE */
         @media (max-width: 900px) {
-    body { padding: 0; align-items: flex-start; overflow-y: auto; }
-    .main-card { flex-direction: column; border-radius: 0; max-height: none; height: auto; aspect-ratio: auto; }
+            body { padding: 0; align-items: flex-start; overflow-y: auto; }
+            .main-card { flex-direction: column; border-radius: 0; max-height: none; height: auto; aspect-ratio: auto; }
 
-    /* AQUI: aumenta a altura no mobile */
-    .visual-area { height: 320px; }
+            /* AQUI: aumenta a altura no mobile */
+            .visual-area { height: 320px; }
 
-    .form-area { margin-top: -30px; border-top-left-radius: 30px; border-top-right-radius: 30px; background: var(--zenga-dark); padding: 3rem 2rem; }
+            .form-area { margin-top: -30px; border-top-left-radius: 30px; border-top-right-radius: 30px; background: var(--zenga-dark); padding: 3rem 2rem; }
 
-    .btn-indique-float { 
-        top: 15px; 
-        right: 15px; 
-        padding: 10px 18px; 
-        font-size: 0.75rem; 
-        animation: none; 
-    }
-    h1 { font-size: 1.8rem; }
-}
+            .btn-indique-float { 
+                top: 15px; 
+                right: 15px; 
+                padding: 10px 18px; 
+                font-size: 0.75rem; 
+                animation: none; 
+            }
+            h1 { font-size: 1.8rem; }
+        }
 
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 900px) {
-    .visual-area { height: 360px; }
-  }
-}
+        /* iPhone: mais altura ainda */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 900px) {
+                .visual-area { height: 360px; }
 
-
+                /* iPhone: some o botão fixo e mostra o botão dentro do form */
+                .btn-indique-float { display: none; }
+                .btn-indique-inline { display: flex; }
+            }
+        }
 
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- FIX IPHONE: não cortar imagem + viewport real --- */
-@supports (height: 100svh) {
-  html, body {
-    height: 100svh;
-  }
-}
-
-
+        /* --- FIX IPHONE: viewport real --- */
+        @supports (height: 100svh) {
+            html, body { height: 100svh; }
+        }
     </style>
 </head>
 <body>
     <div class="bg-fixed"></div>
     <div class="glow"></div>
 
+    <!-- Botão fixo (desktop / android) -->
     <a href="indicacao.html" class="btn-indique-float">
         <i class="ph-bold ph-gift"></i> INDIQUE E GANHE
     </a>
@@ -207,10 +231,17 @@
             <img src="lead.png" class="visual-img" alt="Zenga Lead" onerror="this.src='https://placehold.co/800x1000/042c4e/0cc0df?text=Zenga+Experience'">
         </div>
         <div class="form-area">
+
+            <!-- Botão interno (aparece só no iPhone) -->
+            <a href="indicacao.html" class="btn-indique-inline">
+                <i class="ph-bold ph-gift"></i> INDIQUE E GANHE
+            </a>
+
             <header class="header">
                 <h1>Explore a jornada <br><span>Zenga</span></h1>
                 <p class="subtitle">Cadastre-se para otimizar sua rotina hoje.</p>
             </header>
+
             <form id="cadastroForm" method="POST" data-netlify="true" autocomplete="off">
                 <input type="hidden" name="form-name" value="leadszenga">
                 
@@ -259,7 +290,8 @@
         const phoneInput = document.getElementById('phoneInput');
         phoneInput.addEventListener('input', e => {
             let v = e.target.value.replace(/\D/g, '');
-            v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+            v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); 
+            v = v.replace(/(\d)(\d{4})$/, '$1-$2');
             e.target.value = v;
         });
 
