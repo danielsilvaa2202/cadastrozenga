@@ -24,13 +24,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; -webkit-tap-highlight-color: transparent; }
-        html, body { height: 100%; overflow-x: hidden; }
+        html, body { height: 100%; overflow: hidden; }
 
         body {
             background-color: var(--zenga-dark);
             display: flex; align-items: center; justify-content: center;
             padding: 2rem;
-            min-height: 100vh;
         }
 
         .bg-fixed {
@@ -48,7 +47,7 @@
             position: relative; z-index: 10;
         }
 
-        .visual-area { flex: 5; background-color: var(--zenga-deep); height: 100%; overflow: hidden; }
+        .visual-area { flex: 5; background-color: var(--zenga-deep); height: 100%; }
         .visual-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .form-area {
@@ -80,7 +79,7 @@
         }
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(12, 192, 223, 0.5); }
 
-        /* --- MODAL DE SUCESSO --- */
+        /* --- MODAL DE SUCESSO ATUALIZADO --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2, 24, 43, 0.85); backdrop-filter: blur(12px);
@@ -109,34 +108,13 @@
         .btn-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         .btn-close:hover { background: white; color: var(--zenga-dark); }
 
-        /* --- RESPONSIVIDADE / IPHONE FIX --- */
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 900px) {
-            body { padding: 0; align-items: flex-start; overflow-y: auto; height: auto; }
-            .main-card { 
-                flex-direction: column; 
-                border-radius: 0; 
-                height: auto; 
-                aspect-ratio: auto; 
-                max-height: none; 
-                width: 100vw;
-            }
-            .visual-area { 
-                height: 30vh; 
-                min-height: 200px;
-                flex: none;
-                width: 100%;
-            }
+            body { padding: 0; align-items: flex-start; overflow-y: auto; }
+            .main-card { flex-direction: column; border-radius: 0; height: auto; aspect-ratio: auto; max-height: none; }
+            .visual-area { height: 200px; }
             .input-row { grid-template-columns: 1fr; }
-            .form-area { 
-                padding: 2rem; 
-                background: var(--zenga-dark); 
-                border-top-left-radius: 30px; 
-                border-top-right-radius: 30px; 
-                margin-top: -20px; 
-                flex: none;
-                width: 100%;
-                overflow-y: visible;
-            }
+            .form-area { padding: 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
         }
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
