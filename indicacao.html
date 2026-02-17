@@ -38,7 +38,6 @@
             z-index: -2;
         }
 
-        /* CARD PRINCIPAL - PROPORÇÃO 50/50 IGUAL AO INDEX */
         .main-card {
             display: flex; width: 100%; max-width: 1100px;
             height: auto; max-height: 90vh; aspect-ratio: 16/9; 
@@ -56,7 +55,7 @@
             background: rgba(4, 44, 78, 0.4); overflow-y: auto; 
         }
 
-        .badge { display: inline-block; background: var(--zenga-cyan); color: var(--zenga-deep); padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; margin-bottom: 0.5rem; }
+        .badge { display: inline-block; background: var(--zenga-cyan); color: var(--zenga-deep); padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 0.75rem; margin-bottom: 0.5rem; }
         h1 { color: var(--zenga-white); font-weight: 800; font-size: 1.8rem; line-height: 1.1; margin-bottom: 0.5rem; }
         h1 span { color: var(--zenga-cyan); }
 
@@ -73,55 +72,84 @@
         .input-field:focus { background: rgba(4, 44, 78, 0.95); border-color: var(--zenga-cyan); outline: none; }
 
         .btn-main {
-            width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
+            width: 100%; padding: 1.1rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
             border: none; border-radius: var(--radius-input); color: var(--zenga-deep); font-weight: 800; font-size: 1rem;
             text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
             box-shadow: 0 10px 25px rgba(12, 192, 223, 0.3); transition: 0.3s; margin-top: 1rem;
         }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 24, 43, 0.85); backdrop-filter: blur(12px);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.4s;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-card {
+            background: rgba(4, 44, 78, 0.6); border: 2px solid var(--zenga-cyan); border-radius: 30px;
+            padding: 2.5rem 2rem; width: 90%; max-width: 450px; text-align: center;
+            transform: scale(0.8) translateY(20px); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+        }
+        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
+        .success-icon-box {
+            width: 70px; height: 70px; margin: 0 auto 1.5rem auto;
+            background: rgba(12, 192, 223, 0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--zenga-cyan); box-shadow: 0 0 30px rgba(12, 192, 223, 0.4);
+        }
+        .success-icon-box i { font-size: 2.5rem; color: var(--zenga-cyan); }
+        .modal-card h2 { color: white; font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .modal-card p { color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.5; margin-bottom: 2rem; }
+        .btn-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-close:hover { background: white; color: var(--zenga-dark); }
+        .confetti { position: absolute; width: 10px; height: 10px; background: var(--zenga-cyan); animation: fall 3s linear infinite; opacity: 0; }
+        @keyframes fall { 0% { opacity: 1; transform: translateY(-50px) rotate(0deg); } 100% { opacity: 0; transform: translateY(200px) rotate(360deg); } }
 
         @media (max-width: 900px) {
             body { padding: 0; align-items: flex-start; overflow-y: auto; }
             .main-card { flex-direction: column; border-radius: 0; height: auto; aspect-ratio: auto; max-height: none; }
             .visual-area { height: 180px; }
             .input-row { grid-template-columns: 1fr; }
-            .form-area { padding: 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
+            .form-area { padding: 2.5rem 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
         }
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
-</head>
+ head>
 <body>
     <div class="bg-fixed"></div>
 
     <main class="main-card">
         <div class="visual-area">
-            <img src="indicacao.png" class="visual-img" alt="Zenga Indicação" onerror="this.src='https://placehold.co/800x1000/02182b/0cc0df?text=Indique+Amigos'">
+            <img src="indicacao.png" class="visual-img" alt="Indique" onerror="this.src='https://placehold.co/800x1000/02182b/0cc0df?text=Indique+Amigos'">
         </div>
         <div class="form-area">
             <header>
                 <div class="badge">PRESENTE PARA VOCÊ</div>
                 <h1>Indique 3 contatos e <span>zere seu Onboarding!</span></h1>
             </header>
-            <form id="indicacaoForm" name="indicacao-zenga" method="POST" data-netlify="true">
+            <form id="indicacaoForm" name="indicacao-zenga" method="POST" data-netlify="true" autocomplete="off">
                 <input type="hidden" name="form-name" value="indicacao-zenga">
                 
                 <div class="section-title"><i class="ph-bold ph-user-focus"></i> Seus Dados</div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-user input-icon"></i><input type="text" name="meu_nome" class="input-field" placeholder="Seu nome" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="meu_whatsapp" class="input-field mask-phone" placeholder="Seu WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-user input-icon"></i><input type="text" name="meu_nome" class="input-field" placeholder="Nome" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="meu_whatsapp" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
 
-                <div class="section-title"><i class="ph-bold ph-users-three"></i> Seus Amigos</div>
+                <div class="section-title"><i class="ph-bold ph-users-three"></i> Amigos</div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-one input-icon"></i><input type="text" name="amigo1_n" class="input-field" placeholder="Nome" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo1_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-one input-icon"></i><input type="text" name="a1_n" class="input-field" placeholder="Nome amigo 1" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a1_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-two input-icon"></i><input type="text" name="amigo2_n" class="input-field" placeholder="Nome" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo2_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-two input-icon"></i><input type="text" name="a2_n" class="input-field" placeholder="Nome amigo 2" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a2_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
                 <div class="input-row">
-                    <div class="input-group"><i class="ph-bold ph-number-circle-three input-icon"></i><input type="text" name="amigo3_n" class="input-field" placeholder="Nome" required></div>
-                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="amigo3_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
+                    <div class="input-group"><i class="ph-bold ph-number-circle-three input-icon"></i><input type="text" name="a3_n" class="input-field" placeholder="Nome amigo 3" required></div>
+                    <div class="input-group"><i class="ph-bold ph-whatsapp-logo input-icon"></i><input type="tel" name="a3_w" class="input-field mask-phone" placeholder="WhatsApp" required></div>
                 </div>
 
                 <button type="submit" class="btn-main">RESGATAR BENEFÍCIO</button>
@@ -129,6 +157,19 @@
             </form>
         </div>
     </main>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="confetti" style="left: 30%; animation-delay: 1.5s;"></div>
+            <div class="confetti" style="left: 70%; animation-delay: 0.5s;"></div>
+            <div class="confetti" style="left: 90%; animation-delay: 2s;"></div>
+            <div class="success-icon-box"><i class="ph-fill ph-check-circle"></i></div>
+            <h2>Indicações enviadas!</h2>
+            <p>Validaremos os contatos agora.<br>Você receberá um retorno em breve com seu presente!</p>
+            <button class="btn-close" onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
 
     <script>
         document.querySelectorAll('.mask-phone').forEach(i => {
@@ -138,6 +179,24 @@
                 e.target.value = v;
             });
         });
+
+        const form = document.getElementById('indicacaoForm');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = form.querySelector('.btn-main');
+            btn.innerHTML = 'ENVIANDO...';
+            const formData = new FormData(form);
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            }).then(() => {
+                document.getElementById('successModal').classList.add('active');
+                form.reset();
+                btn.innerHTML = 'RESGATAR BENEFÍCIO';
+            });
+        });
+        function fecharModal() { document.getElementById('successModal').classList.remove('active'); }
     </script>
 </body>
 </html>
