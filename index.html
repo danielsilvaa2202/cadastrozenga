@@ -23,7 +23,12 @@
             --radius-input: 12px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
         html, body { height: 100%; overflow: hidden; }
 
         body {
@@ -32,6 +37,7 @@
             padding: 2rem;
         }
 
+        /* BACKGROUND ELEMENTS */
         .bg-fixed {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at top right, var(--zenga-dark), #000);
@@ -44,22 +50,26 @@
         }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.1); } }
 
-        /* BOTÃO INDIQUE - FIXO SUPERIOR DIREITO */
+        /* BOTÃO INDIQUE - POSICIONAMENTO E TAMANHO */
         .btn-indique-float {
             position: fixed; 
             top: 2rem; 
             right: 2rem; 
             z-index: 2000;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 12px;
             background: var(--zenga-cyan); color: var(--zenga-deep);
-            padding: 12px 24px; border-radius: 50px;
-            text-decoration: none; font-weight: 800; font-size: 0.9rem;
+            padding: 14px 28px; border-radius: 50px;
+            text-decoration: none; font-weight: 800; font-size: 1rem;
             box-shadow: 0 10px 30px rgba(12, 192, 223, 0.4);
-            animation: bounce 2s infinite ease-in-out; transition: 0.3s;
+            animation: bounce 2s infinite ease-in-out; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .btn-indique-float:hover { transform: scale(1.05); background: var(--zenga-white); }
+        .btn-indique-float i { font-size: 1.4rem; }
+
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
+        /* MAIN CARD */
         .main-card {
             display: flex; width: 100%; max-width: 1100px;
             height: auto; max-height: 90vh; aspect-ratio: 16/9; 
@@ -78,25 +88,27 @@
         }
 
         .header { margin-bottom: 1.5rem; }
-        h1 { color: var(--zenga-white); font-weight: 800; font-size: 2rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h1 { color: var(--zenga-white); font-weight: 800; font-size: 2.2rem; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
         h1 span { color: var(--zenga-cyan); }
         .subtitle { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 500; }
 
+        /* INPUTS */
         .input-group { position: relative; margin-bottom: 1rem; }
         .input-field {
             width: 100%; background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-input);
-            padding: 1rem 1rem 1rem 3.2rem; color: white; font-size: 0.95rem; font-weight: 600; transition: 0.3s;
+            padding: 1.1rem 1rem 1.1rem 3.5rem; color: white; font-size: 1rem; font-weight: 600; transition: 0.3s;
         }
-        .input-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--zenga-cyan); font-size: 1.4rem; pointer-events: none; }
+        .input-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--zenga-cyan); font-size: 1.5rem; pointer-events: none; }
         .input-field:focus { background: rgba(4, 44, 78, 0.95); border-color: var(--zenga-cyan); outline: none; box-shadow: 0 0 0 4px rgba(12, 192, 223, 0.2); }
 
+        /* TOGGLE */
         .toggle-area {
             background: rgba(12, 192, 223, 0.08); border: 1px solid rgba(12, 192, 223, 0.2);
-            border-radius: var(--radius-input); padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between;
+            border-radius: var(--radius-input); padding: 0.9rem 1.2rem; display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 1.5rem; cursor: pointer;
         }
-        .toggle-txt { color: white; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .toggle-txt { color: white; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
         
         .switch { position: relative; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
@@ -105,29 +117,55 @@
         input:checked + .slider { background-color: var(--zenga-cyan); }
         input:checked + .slider:before { transform: translateX(20px); }
 
+        /* BUTTON MAIN */
         .btn-main {
-            width: 100%; padding: 1.1rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
+            width: 100%; padding: 1.2rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
             border: none; border-radius: var(--radius-input); color: var(--zenga-deep); font-weight: 800; font-size: 1.1rem;
             text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
             box-shadow: 0 0 25px rgba(12, 192, 223, 0.4); transition: 0.3s;
         }
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(12, 192, 223, 0.7); }
 
-        /* AJUSTES MOBILE */
+        /* MODAL */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 24, 43, 0.85); backdrop-filter: blur(12px);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.4s;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-card {
+            background: var(--zenga-dark); border: 2px solid var(--zenga-cyan);
+            border-radius: 30px; padding: 2.5rem 2rem; width: 90%; max-width: 400px; text-align: center;
+        }
+
+        /* RESPONSIVIDADE - FOCO TABLET E MOBILE */
+        @media (max-width: 1024px) {
+            .btn-indique-float { 
+                top: 1.5rem; 
+                right: 1.5rem; 
+                padding: 16px 32px; /* Botão ainda maior para tablets */
+                font-size: 1.1rem; 
+            }
+        }
+
         @media (max-width: 900px) {
             body { padding: 0; align-items: flex-start; overflow-y: auto; }
             .main-card { flex-direction: column; border-radius: 0; max-height: none; height: auto; aspect-ratio: auto; }
-            .visual-area { height: 320px; }
-            .form-area { margin-top: -30px; border-top-left-radius: 30px; border-top-right-radius: 30px; background: var(--zenga-dark); padding: 3rem 2rem; }
+            .visual-area { height: 350px; }
+            .form-area { margin-top: -40px; border-top-left-radius: 40px; border-top-right-radius: 40px; background: var(--zenga-dark); padding: 3.5rem 2rem; }
             
             .btn-indique-float { 
-                top: 15px; 
-                right: 15px; 
-                padding: 10px 18px; 
-                font-size: 0.75rem; 
-                animation: none; /* Remove animação no mobile para não atrapalhar o toque */
+                top: 20px; 
+                right: 20px; 
+                padding: 14px 26px; /* Ajuste mobile para ser robusto mas não cobrir tudo */
+                font-size: 0.9rem; 
+                animation: none; 
+                box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             }
+            h1 { font-size: 1.8rem; }
         }
+
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -141,49 +179,94 @@
 
     <main class="main-card">
         <div class="visual-area">
-            <img src="lead.png" class="visual-img" onerror="this.src='https://placehold.co/800x1000/042c4e/0cc0df?text=Zenga+Experience'">
+            <img src="lead.png" class="visual-img" alt="Zenga Experience" onerror="this.src='https://placehold.co/800x1000/042c4e/0cc0df?text=Zenga+Branding'">
         </div>
         <div class="form-area">
             <header class="header">
-                <h1>Descubra o universo <br><span>Zenga</span></h1>
-                <p class="subtitle">Cadastre-se para mudar sua rotina.</p>
+                <h1>Seja bem-vindo ao<br><span>Mundo Zenga</span></h1>
+                <p class="subtitle">Complete seu cadastro e transforme sua gestão hoje mesmo.</p>
             </header>
-            <form id="cadastroForm" method="POST" data-netlify="true">
+
+            <form id="cadastroForm" name="leadszenga" method="POST" data-netlify="true" autocomplete="off">
                 <input type="hidden" name="form-name" value="leadszenga">
+                
                 <div class="input-group">
                     <i class="ph-bold ph-user input-icon"></i>
                     <input type="text" name="nome" class="input-field" placeholder="Nome completo" required>
                 </div>
+
                 <div class="input-group">
                     <i class="ph-bold ph-envelope-simple input-icon"></i>
-                    <input type="email" name="email" class="input-field" placeholder="E-mail" required>
+                    <input type="email" name="email" class="input-field" placeholder="Seu melhor e-mail" required>
                 </div>
+
                 <div class="input-group">
                     <i class="ph-bold ph-whatsapp-logo input-icon"></i>
-                    <input type="tel" name="whatsapp" id="phoneInput" class="input-field" placeholder="(00) 00000-0000" required>
+                    <input type="tel" name="whatsapp" id="phoneInput" class="input-field" placeholder="(00) 00000-0000" required maxlength="15">
                 </div>
+
                 <label class="toggle-area">
-                    <div class="toggle-txt"><i class="ph-fill ph-calendar-check" style="color: var(--zenga-cyan);"></i> Agendar demonstração</div>
-                    <div class="switch"><input type="checkbox" name="demo" checked><span class="slider"></span></div>
+                    <div class="toggle-txt">
+                        <i class="ph-fill ph-calendar-check" style="color: var(--zenga-cyan);"></i> 
+                        Agendar demonstração
+                    </div>
+                    <div class="switch">
+                        <input type="checkbox" name="demo" value="Sim" checked>
+                        <span class="slider"></span>
+                    </div>
                 </label>
-                <button type="submit" class="btn-main">CONFIRMAR CADASTRO</button>
+
+                <button type="submit" class="btn-main">
+                    <i class="ph-bold ph-rocket-launch"></i>
+                    QUERO ME CADASTRAR
+                </button>
             </form>
         </div>
     </main>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <i class="ph-fill ph-check-circle" style="font-size: 4rem; color: var(--zenga-cyan);"></i>
+            <h2 style="color: white; margin: 20px 0 10px 0;">Tudo certo!</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 25px;">Recebemos seus dados. Nossa equipe entrará em contato em breve.</p>
+            <button class="btn-main" onclick="fecharModal()">ENTENDIDO</button>
+        </div>
+    </div>
 
     <script>
         const phoneInput = document.getElementById('phoneInput');
         phoneInput.addEventListener('input', e => {
             let v = e.target.value.replace(/\D/g, '');
-            v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+            v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); 
+            v = v.replace(/(\d)(\d{4})$/, '$1-$2');
             e.target.value = v;
         });
+
         const form = document.getElementById('cadastroForm');
+        const modal = document.getElementById('successModal');
+
         form.addEventListener('submit', e => {
             e.preventDefault();
-            alert('Cadastro recebido!');
-            form.reset();
+            const btn = form.querySelector('.btn-main');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'ENVIANDO...';
+
+            const formData = new FormData(form);
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            }).then(() => {
+                modal.classList.add('active');
+                form.reset();
+                btn.innerHTML = originalText;
+            }).catch(() => {
+                alert('Erro ao enviar. Tente novamente.');
+                btn.innerHTML = originalText;
+            });
         });
+
+        function fecharModal() { modal.classList.remove('active'); }
     </script>
 </body>
 </html>
