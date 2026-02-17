@@ -117,6 +117,38 @@
             .form-area { padding: 2rem; background: var(--zenga-dark); border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -20px; }
         }
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- FIX IPHONE: não cortar imagem + viewport real --- */
+@supports (height: 100svh) {
+  html, body {
+    height: 100svh;
+  }
+}
+
+/* iPhone Safari (mais agressivo) */
+@media (max-width: 900px) {
+  .visual-img {
+    object-fit: contain;
+    background: var(--zenga-deep);
+  }
+
+  .visual-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--zenga-deep);
+  }
+}
+
+/* Garantia extra para iOS */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 900px) {
+    .visual-img {
+      object-fit: contain;
+    }
+  }
+}
+
     </style>
 </head>
 <body>
