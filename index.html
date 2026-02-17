@@ -44,7 +44,7 @@
         }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.1); } }
 
-        /* BOTÃO INDIQUE - DESKTOP */
+        /* --- BOTÃO INDIQUE (CONFIGURAÇÃO BASE) --- */
         .btn-indique-float {
             position: fixed; top: 2rem; right: 2rem; z-index: 2000;
             display: flex; align-items: center; gap: 10px;
@@ -57,7 +57,7 @@
         .btn-indique-float:hover { transform: scale(1.05); background: var(--zenga-white); }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* CARD PRINCIPAL - PROPORÇÃO 50/50 */
+        /* --- CARD PRINCIPAL (PROPORÇÃO 50/50 IGUAL À INDICAÇÃO) --- */
         .main-card {
             display: flex; width: 100%; max-width: 1100px;
             height: auto; max-height: 90vh; aspect-ratio: 16/9; 
@@ -76,25 +76,27 @@
         }
 
         .header { margin-bottom: 1.5rem; }
-        h1 { color: var(--zenga-white); font-weight: 800; font-size: 2.2rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h1 { color: var(--zenga-white); font-weight: 800; font-size: 2rem; line-height: 1.1; margin-bottom: 0.5rem; }
         h1 span { color: var(--zenga-cyan); }
-        .subtitle { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 500; }
+        .subtitle { color: rgba(255,255,255,0.7); font-size: 0.95rem; font-weight: 500; }
 
+        /* INPUTS */
         .input-group { position: relative; margin-bottom: 1rem; }
         .input-field {
             width: 100%; background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-input);
-            padding: 1rem 1rem 1rem 3.2rem; color: white; font-size: 1rem; font-weight: 600; transition: 0.3s;
+            padding: 1rem 1rem 1rem 3.2rem; color: white; font-size: 0.95rem; font-weight: 600; transition: 0.3s;
         }
         .input-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--zenga-cyan); font-size: 1.4rem; pointer-events: none; }
         .input-field:focus { background: rgba(4, 44, 78, 0.95); border-color: var(--zenga-cyan); outline: none; }
 
+        /* COMPONENTES DE AÇÃO */
         .toggle-area {
             background: rgba(12, 192, 223, 0.08); border: 1px solid rgba(12, 192, 223, 0.2);
-            border-radius: var(--radius-input); padding: 0.8rem 1.2rem; display: flex; align-items: center; justify-content: space-between;
+            border-radius: var(--radius-input); padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 1.5rem; cursor: pointer;
         }
-        .toggle-txt { color: white; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+        .toggle-txt { color: white; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
         
         .switch { position: relative; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
@@ -105,28 +107,42 @@
 
         .btn-main {
             width: 100%; padding: 1.1rem; background: linear-gradient(135deg, var(--zenga-cyan), #099bb5);
-            border: none; border-radius: var(--radius-input); color: var(--zenga-deep); font-weight: 800; font-size: 1.1rem;
+            border: none; border-radius: var(--radius-input); color: var(--zenga-deep); font-weight: 800; font-size: 1rem;
             text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
             box-shadow: 0 0 25px rgba(12, 192, 223, 0.4); transition: 0.3s;
         }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(12, 192, 223, 0.6); }
 
-        /* RESPONSIVIDADE */
+        /* --- RESPONSIVIDADE ESPECÍFICA --- */
+
+        /* TABLET (ESTILO SOLICITADO: BOTÃO MAIOR) */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .btn-indique-float { 
+                padding: 18px 36px; 
+                font-size: 1.1rem; 
+                top: 2.5rem; 
+                right: 2.5rem;
+            }
+        }
+
+        /* MOBILE (ESTILO SOLICITADO: BOTÃO MENOR) */
         @media (max-width: 900px) {
             body { padding: 0; align-items: flex-start; overflow-y: auto; }
             .main-card { flex-direction: column; border-radius: 0; max-height: none; height: auto; aspect-ratio: auto; }
-            .visual-area { height: 320px; }
-            .form-area { margin-top: -40px; border-top-left-radius: 40px; border-top-right-radius: 40px; background: var(--zenga-dark); padding: 3.5rem 2rem; }
+            .visual-area { height: 300px; }
+            .form-area { margin-top: -30px; border-top-left-radius: 30px; border-top-right-radius: 30px; background: var(--zenga-dark); padding: 3rem 2rem; }
             
-            /* BOTÃO REDUZIDO NO MOBILE */
+            /* Botão pequeno no celular conforme pedido */
             .btn-indique-float { 
                 top: 15px; 
                 right: 15px; 
                 padding: 10px 18px; 
-                font-size: 0.8rem; 
+                font-size: 0.75rem; 
                 animation: none; 
             }
             h1 { font-size: 1.8rem; }
         }
+
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -140,32 +156,43 @@
 
     <main class="main-card">
         <div class="visual-area">
-            <img src="lead.png" class="visual-img" alt="Zenga" onerror="this.src='https://placehold.co/800x1000/042c4e/0cc0df?text=Zenga+Lead'">
+            <img src="lead.png" class="visual-img" alt="Zenga Lead" onerror="this.src='https://placehold.co/800x1000/042c4e/0cc0df?text=Zenga+Experience'">
         </div>
         <div class="form-area">
             <header class="header">
-                <h1>Descubra o universo <br><span>Zenga</span></h1>
-                <p class="subtitle">Complete seu cadastro e transforme sua gestão.</p>
+                <h1>Explore a jornada <br><span>Zenga</span></h1>
+                <p class="subtitle">Cadastre-se para otimizar sua rotina hoje.</p>
             </header>
-            <form id="cadastroForm" name="leadszenga" method="POST" data-netlify="true" autocomplete="off">
+            <form id="cadastroForm" method="POST" data-netlify="true" autocomplete="off">
                 <input type="hidden" name="form-name" value="leadszenga">
+                
                 <div class="input-group">
                     <i class="ph-bold ph-user input-icon"></i>
                     <input type="text" name="nome" class="input-field" placeholder="Nome completo" required>
                 </div>
+
                 <div class="input-group">
                     <i class="ph-bold ph-envelope-simple input-icon"></i>
-                    <input type="email" name="email" class="input-field" placeholder="E-mail" required>
+                    <input type="email" name="email" class="input-field" placeholder="Seu melhor e-mail" required>
                 </div>
+
                 <div class="input-group">
                     <i class="ph-bold ph-whatsapp-logo input-icon"></i>
-                    <input type="tel" name="whatsapp" id="phoneInput" class="input-field" placeholder="(00) 00000-0000" required>
+                    <input type="tel" name="whatsapp" id="phoneInput" class="input-field" placeholder="(00) 00000-0000" required maxlength="15">
                 </div>
+
                 <label class="toggle-area">
                     <div class="toggle-txt"><i class="ph-fill ph-calendar-check" style="color: var(--zenga-cyan);"></i> Agendar demonstração</div>
-                    <div class="switch"><input type="checkbox" name="demo" value="Sim" checked><span class="slider"></span></div>
+                    <div class="switch">
+                        <input type="checkbox" name="demo" value="Sim" checked>
+                        <span class="slider"></span>
+                    </div>
                 </label>
-                <button type="submit" class="btn-main">CONFIRMAR CADASTRO</button>
+
+                <button type="submit" class="btn-main">
+                    <i class="ph-bold ph-paper-plane-right"></i>
+                    CONFIRMAR CADASTRO
+                </button>
             </form>
         </div>
     </main>
@@ -176,6 +203,12 @@
             let v = e.target.value.replace(/\D/g, '');
             v = v.replace(/^(\d{2})(\d)/g, '($1) $2'); v = v.replace(/(\d)(\d{4})$/, '$1-$2');
             e.target.value = v;
+        });
+
+        document.getElementById('cadastroForm').addEventListener('submit', e => {
+            // O Netlify cuidará do processamento; apenas exibimos um feedback
+            const btn = e.target.querySelector('.btn-main');
+            btn.innerHTML = 'ENVIANDO...';
         });
     </script>
 </body>
