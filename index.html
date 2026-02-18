@@ -103,6 +103,10 @@
         h1 { color: var(--zenga-white); font-weight: 800; font-size: 2rem; line-height: 1.1; margin-bottom: 0.5rem; }
         h1 span { color: var(--zenga-cyan); }
         .subtitle { color: rgba(255,255,255,0.7); font-size: 0.95rem; font-weight: 500; }
+        
+        /* NOVA REGRA PARA O LINK DO INSTAGRAM */
+        .subtitle a { color: var(--zenga-cyan); text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .subtitle a:hover { color: var(--zenga-white); }
 
         /* INPUTS */
         .input-group { position: relative; margin-bottom: 1rem; }
@@ -221,7 +225,6 @@
     <div class="bg-fixed"></div>
     <div class="glow"></div>
 
-    <!-- Botão fixo (desktop / android) -->
     <a href="indicacao.html" class="btn-indique-float">
         <i class="ph-bold ph-gift"></i> INDIQUE E GANHE
     </a>
@@ -232,14 +235,13 @@
         </div>
         <div class="form-area">
 
-            <!-- Botão interno (aparece só no iPhone) -->
             <a href="indicacao.html" class="btn-indique-inline">
                 <i class="ph-bold ph-gift"></i> INDIQUE E GANHE
             </a>
 
             <header class="header">
                 <h1>Explore a jornada <br><span>Zenga</span></h1>
-                <p class="subtitle">Cadastre-se para otimizar sua rotina hoje.</p>
+                <p class="subtitle">Cadastre-se para otimizar sua rotina hoje. &bull; <a href="https://www.instagram.com/zengatax/" target="_blank">Nosso instagram</a></p>
             </header>
 
             <form id="cadastroForm" method="POST" data-netlify="true" autocomplete="off">
